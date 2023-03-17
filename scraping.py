@@ -43,7 +43,6 @@ class Scraping:
             self.image_folder_name = re.sub(r"[\\\/\:\*\?\"\<\>\|]", " ", self.page_content.select(self.selector_image_folder_name)[0].get_text())
 
         download_path = [self.download_directory] if not self.image_folder_name else [self.download_directory, self.image_folder_name]
-        print(download_path)
         download_path = os.path.join(os.path.abspath(os.getcwd()), *download_path)
         if not os.path.exists(download_path): 
             os.makedirs(download_path)
