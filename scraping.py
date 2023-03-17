@@ -32,11 +32,12 @@ class Scraping:
 
         return contents
 
-    def download(self):
-        contents = self.get_download_contents()
-        if not contents: 
-            print(f"情報: `{self.target_url}`にダウンロードできるものはありませんでした")
-            return
+    def download(self, contents=None):
+        if not contents:
+            contents = self.get_download_contents()
+            if not contents: 
+                print(f"情報: `{self.target_url}`にダウンロードできるものはありませんでした")
+                return
 
         if self.selector_image_folder_name:
             self.image_folder_name = re.sub(r"[\\\/\:\*\?\"\<\>\|]", " ", self.page_content.select(self.selector_image_folder_name)[0].get_text())

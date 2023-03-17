@@ -19,15 +19,15 @@ target_url = target_url.split(",")
 print(f"情報: {str(len(target_url))}点のページから画像をダウンロードします。")
 for tu in target_url:
     sc = scraping.Scraping(tu, search_tag_and_attribute, download_image_pattern, selector_image_folder_name, download_directory, numbering == "y")
-    contents_count = sc.get_download_contents()
+    contents = sc.get_download_contents()
 
-    if not contents_count:
-        sys.exit(("\n" * 3) + "エラー: ダウンロードできる画像がありませんでした")
+    if contents:
+        print("=" * 20)
+        print(f"情報: `{tu}`にある画像を{str(len(contents))}点ダウンロードします。")
+        print("=" * 20)
 
-    print("=" * 20)
-    print(f"情報: `{tu}`にある画像を{str(len(contents_count))}点ダウンロードします。")
-    print("=" * 20)
-
-    sc.download()
+        sc.download(contents)
+    else:
+        print(f"情報: `{tu}`にダウンロードできるものはありませんでした")
 
 print("情報: すべてのダウンロードが完了しました。")
